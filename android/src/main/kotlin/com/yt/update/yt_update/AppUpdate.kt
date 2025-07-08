@@ -3,10 +3,13 @@ package com.yt.update.yt_update
 import android.app.Activity
 import android.app.AlertDialog
 import android.graphics.Color
+import android.os.Build
 import android.util.Log
+import com.yt.update.yt_update.update.config.Constant
 import com.yt.update.yt_update.update.listener.OnDownloadListener
 import com.yt.update.yt_update.update.manager.DownloadManager
 import com.yt.update.yt_update.update.util.ApkUtil
+import com.yt.update.yt_update.update.util.NotificationUtil
 import java.io.File
 
 class AppUpdate private constructor() {
@@ -31,19 +34,34 @@ class AppUpdate private constructor() {
     //下载失败原因
     var errMsg: String? = null
 
+
+    var apkPath: String = ""
+
     fun cancelUpdate() = manager?.cancel()
+
+    fun install(act: Activity) {
+        try {
+            ApkUtil.installApk(act, "${act.packageName}.fileProvider", File(apkPath))
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
+    }
+
 
     fun update(act: Activity, updApkUrl: String) {
         downStatus = 0
+
         val pkgName = updApkUrl.split("/").last()
-        ApkUtil.deleteOldApk(act, "${act.externalCacheDir?.path}/$pkgName")
+        apkPath = "${act.externalCacheDir?.path}/$pkgName"
+        ApkUtil.deleteOldApk(act, apkPath)
 
         manager = DownloadManager.Builder(act).run {
             apkUrl(updApkUrl)
             apkName(pkgName)
+            downloadPath = act.externalCacheDir?.path
             smallIcon(R.drawable.app_update_dialog_close)
-            showBgdToast(true)
-            showNewerToast(true)
+            showBgdToast(false)
+            showNewerToast(false)
             enableLog(true)
             jumpInstallPage(true)
             showNotification(true)

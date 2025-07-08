@@ -44,6 +44,8 @@ class YtUpdate {
     return;
   }
 
+  Future<void> install() async => await YtUpdatePlatform.instance.updateInstall();
+
   Future<void> jumpBrowser(String url) async {
     isRun = false;
     await launchUrlString(url);

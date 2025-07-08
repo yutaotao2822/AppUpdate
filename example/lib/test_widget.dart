@@ -43,19 +43,16 @@ class _TestViewState extends State<TestView> {
 
   void _tapGoogle() => _ytUpdatePlugin.updateGoogle();
 
-  void _tapBrowser()=> _ytUpdatePlugin.jumpBrowser("https://www.pgyer.com/xxxx");
+  void _tapBrowser() => _ytUpdatePlugin.jumpBrowser("https://www.pgyer.com/xxxx");
 
-  void _tapApp() =>
-    _ytUpdatePlugin.update(
-        apkUrl: "http://xx.xx.xx.xx:xxxx/minio/sys/app/Smart_M_1.5.2_1748243119.apk",
-        listener: (status) {
-          setState(() {
-            if (status.maxSize != 0) circleValue = status.downSize / status.maxSize;
-            statusMsg = status.toString();
-          });
+  void _tapApp() => _ytUpdatePlugin.update(
+      apkUrl: "http://xx.xx.xx.xx:xxxx/minio/sys/app/Smart_M_1.5.2_1748243119.apk",
+      listener: (status) {
+        setState(() {
+          if (status.maxSize != 0) circleValue = status.downSize / status.maxSize;
+          statusMsg = status.toString();
         });
+      });
 
   void _tapCancel() => _ytUpdatePlugin.cancel();
-
-
 }

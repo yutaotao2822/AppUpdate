@@ -32,5 +32,7 @@ class YtUpdatePlatform extends PlatformInterface {
     return AppUpdateStatusBean(bbb);
   }
 
+  Future<void> updateInstall() async => await methodChannel.invokeMethod("updateInstall");
+
   Future<void> updateAppCancel() async => await methodChannel.invokeMethod("updateAppCancel");
 }

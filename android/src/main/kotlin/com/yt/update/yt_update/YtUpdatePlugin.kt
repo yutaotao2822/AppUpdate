@@ -26,9 +26,15 @@ class YtUpdatePlugin : FlutterPlugin, MethodChannel.MethodCallHandler, ActivityA
         GoogleUpdate().update(currentActivity!!, currentActivity!!.packageName)
     }
 
+
     private fun dealAppUpdate(apkUrl: String) {
         if (currentActivity == null) return
         AppUpdate.getInstance().update(currentActivity!!, apkUrl)
+    }
+
+    private fun dealInstallApk() {
+        if (currentActivity == null) return
+        AppUpdate.getInstance().install(currentActivity!!)
     }
 
     private fun dealAppUpdateStatus(result: MethodChannel.Result) {
@@ -64,6 +70,10 @@ class YtUpdatePlugin : FlutterPlugin, MethodChannel.MethodCallHandler, ActivityA
             "updateAppStatus" -> dealAppUpdateStatus(result)
             "updateAppCancel" -> {
                 AppUpdate.getInstance().cancelUpdate()
+                result.success("")
+            }
+            "updateInstall" -> {
+                dealInstallApk()
                 result.success("")
             }
             else -> result.notImplemented()

@@ -1,6 +1,6 @@
 name: yt_update
 description: "AppUpdate"
-version: 0.0.2
+version: 0.0.3
 homepage: https://github.com/yutaotao2822/AppUpdate.git
 
 environment:
