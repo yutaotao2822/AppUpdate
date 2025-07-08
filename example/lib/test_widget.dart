@@ -36,21 +36,26 @@ class _TestViewState extends State<TestView> {
               ElevatedButton(onPressed: _tapApp, child: const Text("AppUpdate")),
               const SizedBox(height: 20),
               ElevatedButton(onPressed: _tapCancel, child: const Text("cancel")),
+              const SizedBox(height: 20),
+              ElevatedButton(onPressed: _tapBrowser, child: const Text("Browser")),
             ]))
           ]));
 
   void _tapGoogle() => _ytUpdatePlugin.updateGoogle();
 
-  void _tapCancel() => _ytUpdatePlugin.cancel();
+  void _tapBrowser()=> _ytUpdatePlugin.jumpBrowser("https://www.pgyer.com/xxxx");
 
-  void _tapApp() {
+  void _tapApp() =>
     _ytUpdatePlugin.update(
-        apkUrl: "http://1.95.128.88:9999/minio/sys/app/Smart_M_1.5.2_1748243119.apk",
+        apkUrl: "http://xx.xx.xx.xx:xxxx/minio/sys/app/Smart_M_1.5.2_1748243119.apk",
         listener: (status) {
           setState(() {
             if (status.maxSize != 0) circleValue = status.downSize / status.maxSize;
             statusMsg = status.toString();
           });
         });
-  }
+
+  void _tapCancel() => _ytUpdatePlugin.cancel();
+
+
 }

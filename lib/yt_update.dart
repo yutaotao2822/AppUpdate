@@ -43,4 +43,10 @@ class YtUpdate {
     await YtUpdatePlatform.instance.updateAppCancel();
     return;
   }
+
+  Future<void> jumpBrowser(String url) async {
+    isRun = false;
+    await launchUrlString(url);
+    return;
+  }
 }
